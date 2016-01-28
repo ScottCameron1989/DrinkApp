@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".DrinkCreateActivity">
+    <item android:id="@+id/add_tags" android:title="@string/add_tags"
+    android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/add_description" android:title="@string/add_description"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>
+<!-- From: file:/C:/Users/scott/Desktop/DrinkTaster/app/src/main/res/menu/add_drink_menu.xml -->
