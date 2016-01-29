@@ -56,20 +56,21 @@ public final class Control {
     public ArrayList<Drink> getDrinks(Context context) {
         SharedPreferences settings;
         List<Drink> drinks;
+        drinks = new ArrayList<>();
 
         settings = context.getSharedPreferences(PREFS_NAME,
                 Context.MODE_PRIVATE);
 
         if (settings.contains(DRINKS)) {
-            String jsonFavorites = settings.getString(DRINKS, null);
+            String jsonDrink = settings.getString(DRINKS, null);
             Gson gson = new Gson();
-            Drink[] favoriteItems = gson.fromJson(jsonFavorites,
+            Drink[] drinkItems = gson.fromJson(jsonDrink,
                     Drink[].class);
-
-            drinks = Arrays.asList(favoriteItems);
-            drinks = new ArrayList<Drink>(drinks);
-        } else
-            return null;
+            if(drinkItems != null) {
+                drinks = Arrays.asList(drinkItems);
+                drinks = new ArrayList<Drink>(drinks);
+            }
+        }
 
         return (ArrayList<Drink>) drinks;
     }

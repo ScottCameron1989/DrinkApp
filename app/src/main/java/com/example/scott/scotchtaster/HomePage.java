@@ -51,10 +51,12 @@ public class HomePage extends AppCompatActivity {
             drinks = savedInstanceState.getParcelableArrayList("drinks");
         }
         else {
-            mFile = new File(Environment.getExternalStorageDirectory(), fileName);
             drinks = new ArrayList<Drink>();
             VerifyStoragePermissions(HomePage.this);
-            drinks = control.getDrinks(HomePage.this);
+            if( control.getDrinks(HomePage.this) != null)
+            {
+                drinks = control.getDrinks(HomePage.this);
+            }
         }
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewTags);
@@ -140,7 +142,7 @@ public class HomePage extends AppCompatActivity {
     }
     public void ActivateEmptyTextView()
     {
-        if (drinks.isEmpty())
+        if (drinks == null || drinks.isEmpty())
             emptyView.setVisibility(View.VISIBLE);
         else
             emptyView.setVisibility(View.INVISIBLE);

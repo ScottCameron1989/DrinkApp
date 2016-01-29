@@ -30,17 +30,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="No items added yet"
-            android:gravity="center"
-            />
+            android:gravity="center" />
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:elevation="6dp"
-            android:layout_gravity="bottom|right"
+            app:elevation="10dp"
+            android:layout_gravity="bottom|right|end"
             android:src="@android:drawable/ic_input_add"
             android:tint="#ffffff"
-            android:onClick="StartDrinkCreationActivity"/>
+            android:onClick="StartDrinkCreationActivity"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"/>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

@@ -57,6 +57,12 @@
                         android:layout_gravity="center_horizontal"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"/>
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/check_button"
+                        android:onClick="addDrinkButton"/>
                 </LinearLayout>
             </LinearLayout>
 </LinearLayout>

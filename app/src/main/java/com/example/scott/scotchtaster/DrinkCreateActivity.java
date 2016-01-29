@@ -48,11 +48,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),mRatingBar.getRating());
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("Drink",mDrink);
-                    DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);
-                    finish();
+                    AddDrink();
                     return true;
                 }
                 else
@@ -158,5 +154,16 @@ public class DrinkCreateActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void addDrinkButton(View view) {
+        AddDrink();
+    }
+    public void AddDrink(){
+        mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),mRatingBar.getRating());
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("Drink",mDrink);
+        DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 }
