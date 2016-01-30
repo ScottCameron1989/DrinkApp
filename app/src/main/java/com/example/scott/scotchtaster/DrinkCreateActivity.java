@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class DrinkCreateActivity extends AppCompatActivity {
     private EditText mPriceEditText;
@@ -32,9 +33,11 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private static String root = null;
     private static String imageFolderPath = null;
     private String imageName = null;
+    private List<String> mTags;
     android.support.v7.app.ActionBar mActionbar;
     private static Uri fileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
+    private static final int TAGS_CREATE_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     AddDrink();
                     return true;
-                }
-                else
+                } else
                     return false;
             }
         });
@@ -72,8 +74,12 @@ public class DrinkCreateActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.add_tags:
+                Intent intent = new Intent(this,TagsActivity.class);
+                Integer code = new Integer(TAGS_CREATE_CODE);
+                startActivityForResult(intent,code);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -146,7 +152,12 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     imageView.setImageBitmap(bitmap);
 
                     break;
-
+                case TAGS_CREATE_CODE:
+                    if (!data.getStringArrayListExtra("Tags").isEmpty())
+                    {
+                        mTags = data.getStringArrayListExtra("Tags");
+                    }
+                    break;
                 default:
                     Toast.makeText(this, "Something went wrong...",
                             Toast.LENGTH_SHORT).show();
@@ -160,10 +171,16 @@ public class DrinkCreateActivity extends AppCompatActivity {
         AddDrink();
     }
     public void AddDrink(){
-        mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),mRatingBar.getRating());
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("Drink",mDrink);
-        DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);
-        finish();
+        if (!mTitleEditText.getText().toString().isEmpty() && !mPriceEditText.getText().toString().isEmpty())
+        {
+            mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),mRatingBar.getRating());
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("Drink",mDrink);
+            DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+        else
+            Toast.makeText(this, "please fill the fields",
+                    Toast.LENGTH_SHORT).show();
     }
 }
