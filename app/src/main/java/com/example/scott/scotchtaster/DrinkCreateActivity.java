@@ -38,7 +38,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private String imageName = null;
     private List<String> mTags;
     private String mDesc;
-    private static Uri fileUri = null;
+    private static Uri mFileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
     private static final int TAGS_CREATE_TAGS_CODE = 2;
     private static final int TAGS_CREATE_DESC_CODE = 3;
@@ -51,6 +51,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
         mTitleEditText = (EditText) findViewById(R.id.editTextTitle);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mDesc = "";
+        mFileUri = Uri.parse("");
         mTags = new ArrayList<>();
         mPriceEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -119,20 +120,21 @@ public class DrinkCreateActivity extends AppCompatActivity {
         File imagesFolder = new File(imageFolderPath);
         imagesFolder.mkdirs();
 
-        // Generating file name
-        imageName = "test.png";
+        // Generating file
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        imageName = "test"+timestamp+".png";
 
         // Creating image here
 
         File image = new File(imageFolderPath, imageName);
 
-        fileUri = Uri.fromFile(image);
+        mFileUri = Uri.fromFile(image);
 
         imageView.setTag(imageFolderPath + File.separator + imageName);
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
 
         startActivityForResult(takePictureIntent, CAMERA_IMAGE_REQUEST);
 
@@ -150,7 +152,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     Bitmap bitmap = null;
                     try {
                         GetImageThumbnail getImageThumbnail = new GetImageThumbnail();
-                        bitmap = getImageThumbnail.getThumbnail(fileUri, this);
+                        bitmap = getImageThumbnail.getThumbnail(mFileUri, this);
                     } catch (FileNotFoundException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -160,10 +162,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     }
 
                     // Setting image image icon on the imageview
-
-                    ImageView imageView = (ImageView) this
-                            .findViewById(R.id.imageViewScotch);
-
+                    ImageView imageView = (ImageView) this.findViewById(R.id.imageViewScotch);
                     imageView.setImageBitmap(bitmap);
 
                     break;
@@ -195,7 +194,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
         if (!mTitleEditText.getText().toString().isEmpty() && !mPriceEditText.getText().toString().isEmpty())
         {
             mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),
-                    mRatingBar.getRating(),mDesc,mTags.toArray(new String[mTags.size()]));
+                    mRatingBar.getRating(),mDesc,mTags.toArray(new String[mTags.size()]),mFileUri.toString());
             Intent resultIntent = new Intent();
             resultIntent.putExtra("Drink",mDrink);
             DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);

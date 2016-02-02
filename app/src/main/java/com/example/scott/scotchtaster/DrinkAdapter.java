@@ -1,10 +1,15 @@
 package com.example.scott.scotchtaster;
 
+import android.media.Image;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,12 +24,14 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         protected TextView vDrinkName;
         protected TextView vDrinkPrice;
         protected TextView vDrinkRating;
+        protected ImageView vDrinkPicture;
 
         public DrinkViewHolder(View v) {
             super(v);
             vDrinkName = (TextView)v.findViewById(R.id.drinkName);
             vDrinkPrice = (TextView)v.findViewById(R.id.drinkPrice);
             vDrinkRating = (TextView)v.findViewById(R.id.drinkRating);
+            vDrinkPicture = (ImageView)v.findViewById(R.id.drinkPicture);
         }
     }
 
@@ -52,6 +59,8 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         holder.vDrinkName.setText(mDataset.get(position).getNom());
         holder.vDrinkPrice.setText(String.valueOf(mDataset.get(position).getPrice()));
         holder.vDrinkRating.setText(String.valueOf(mDataset.get(position).getRating()));
+        if (!mDataset.get(position).getPicture().isEmpty())
+            Picasso.with(holder.itemView.getContext()).load(mDataset.get(position).getPicture()).into(holder.vDrinkPicture);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

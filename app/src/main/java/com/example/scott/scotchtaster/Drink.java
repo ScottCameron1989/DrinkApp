@@ -3,6 +3,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,13 +26,15 @@ public class Drink implements Parcelable{
     private double price;
     private String[] tags;
     private float rating;
+    private String picture;
 
-    public Drink(String nom, double price, float rating, String description, String[] tags) {
+    public Drink(String nom, double price, float rating, String description, String[] tags, String picture) {
         this.nom = nom;
         this.price = price;
         this.rating = rating;
         this.description = description;
         this.tags = tags;
+        this.picture = picture;
     }
 
     public Drink(String nom, double price, float rating) {
@@ -46,6 +49,7 @@ public class Drink implements Parcelable{
         price = in.readDouble();
         tags = in.createStringArray();
         rating = in.readFloat();
+        picture = in.readString();
     }
 
     public static final Creator<Drink> CREATOR = new Creator<Drink>() {
@@ -100,6 +104,10 @@ public class Drink implements Parcelable{
         this.rating = rating;
     }
 
+    public String getPicture() {return picture;}
+
+    public void setPicture(String picture) {this.picture = picture;}
+
     @Override
     public String toString() {
         return nom + " " + price + "$";
@@ -117,5 +125,6 @@ public class Drink implements Parcelable{
         dest.writeDouble(price);
         dest.writeStringArray(tags);
         dest.writeFloat(rating);
+        dest.writeString(picture);
     }
 }
