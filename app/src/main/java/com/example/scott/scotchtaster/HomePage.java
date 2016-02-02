@@ -28,7 +28,6 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Drink> drinks;
     private String fileName = "drinks.txt";
-    private File mFile;
     private RatingBar mRatingBar;
     android.support.v7.app.ActionBar mActionbar;
     private TextView emptyView;
@@ -43,7 +42,6 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
         SharedPreferences sharedPref = HomePage.this.getPreferences(Activity.MODE_PRIVATE);
 
         if (savedInstanceState != null)

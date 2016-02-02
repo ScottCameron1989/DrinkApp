@@ -26,10 +26,11 @@ public class Drink implements Parcelable{
     private String[] tags;
     private float rating;
 
-    public Drink(String nom, String description, double price, Bitmap image, String[] tags) {
+    public Drink(String nom, double price, float rating, String description, String[] tags) {
         this.nom = nom;
-        this.description = description;
         this.price = price;
+        this.rating = rating;
+        this.description = description;
         this.tags = tags;
     }
 

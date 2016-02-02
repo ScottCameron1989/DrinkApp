@@ -14,8 +14,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import me.gujun.android.taggroup.TagGroup;
 
 public class TagsActivity extends AppCompatActivity {
 
@@ -23,37 +27,20 @@ public class TagsActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private EditText mTagEditText;
-    private List<String> mTagList;
+    private ArrayList<String> mTags;
+    private TagGroup mTagGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
-        mTagList = new ArrayList<>();
-        mTagEditText = (EditText)findViewById(R.id.editTextTags);
-        RecyclerView mRecyclerView  = (RecyclerView)findViewById(R.id.recyclerViewTags);
-        mRecyclerView.setHasFixedSize(true);
+        mTagGroup = (TagGroup) findViewById(R.id.tag_group);
+        if (getIntent().getExtras() != null) {
+            mTags = getIntent().getStringArrayListExtra("Tags");
+            mTagGroup.setTags(mTags);
+        }
 
-        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new TagsAdapter(mTagList);
-        mRecyclerView.setAdapter(mAdapter);
-
-        mTagEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mTagList.add(mTagEditText.getText().toString());
-                    mAdapter.notifyDataSetChanged();
-                    mTagEditText.setText("");
-                    return true;
-                } else
-                    return false;
-            }
-        });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -78,7 +65,7 @@ public class TagsActivity extends AppCompatActivity {
 
     public void addTagsButton(View view) {
         Intent resultIntent = new Intent();
-        resultIntent.putStringArrayListExtra("Tags", (ArrayList<String>) mTagList);
+        resultIntent.putStringArrayListExtra("Tags", new ArrayList<String>(Arrays.asList(mTagGroup.getTags())));
         TagsActivity.this.setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

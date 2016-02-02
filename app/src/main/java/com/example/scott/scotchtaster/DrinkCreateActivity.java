@@ -1,6 +1,7 @@
 package com.example.scott.scotchtaster;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DrinkCreateActivity extends AppCompatActivity {
@@ -29,15 +33,15 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private EditText mTitleEditText;
     private Drink mDrink;
     private RatingBar mRatingBar;
-    private String mFileName = "drinks.txt";
     private static String root = null;
     private static String imageFolderPath = null;
     private String imageName = null;
     private List<String> mTags;
-    android.support.v7.app.ActionBar mActionbar;
+    private String mDesc;
     private static Uri fileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
-    private static final int TAGS_CREATE_CODE = 2;
+    private static final int TAGS_CREATE_TAGS_CODE = 2;
+    private static final int TAGS_CREATE_DESC_CODE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +50,15 @@ public class DrinkCreateActivity extends AppCompatActivity {
         mPriceEditText = (EditText) findViewById(R.id.editTextPrice);
         mTitleEditText = (EditText) findViewById(R.id.editTextTitle);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
-
+        mDesc = "";
+        mTags = new ArrayList<>();
         mPriceEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    AddDrink();
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mPriceEditText.getWindowToken(), 0);
+                    mPriceEditText.clearFocus();
                     return true;
                 } else
                     return false;
@@ -75,11 +82,21 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch(id){
-            case R.id.add_tags:
-                Intent intent = new Intent(this,TagsActivity.class);
-                Integer code = new Integer(TAGS_CREATE_CODE);
-                startActivityForResult(intent,code);
+            case R.id.add_tags: {
+                Intent intent = new Intent(this, TagsActivity.class);
+                Integer code = new Integer(TAGS_CREATE_TAGS_CODE);
+                intent.putStringArrayListExtra("Tags",(ArrayList<String>)mTags);
+                startActivityForResult(intent, code);
                 break;
+            }
+
+            case R.id.add_description: {
+                Intent intent = new Intent(this, DescriptionActivity.class);
+                Integer code = new Integer(TAGS_CREATE_DESC_CODE);
+                intent.putExtra("Desc",mDesc);
+                startActivityForResult(intent, code);
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -117,8 +134,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
-        startActivityForResult(takePictureIntent,
-                CAMERA_IMAGE_REQUEST);
+        startActivityForResult(takePictureIntent, CAMERA_IMAGE_REQUEST);
 
     }
 
@@ -131,7 +147,6 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
             switch (requestCode) {
                 case CAMERA_IMAGE_REQUEST:
-
                     Bitmap bitmap = null;
                     try {
                         GetImageThumbnail getImageThumbnail = new GetImageThumbnail();
@@ -152,10 +167,16 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     imageView.setImageBitmap(bitmap);
 
                     break;
-                case TAGS_CREATE_CODE:
+                case TAGS_CREATE_TAGS_CODE:
                     if (!data.getStringArrayListExtra("Tags").isEmpty())
                     {
                         mTags = data.getStringArrayListExtra("Tags");
+                    }
+                    break;
+                case TAGS_CREATE_DESC_CODE:
+                    if(!data.getStringExtra("Desc").isEmpty())
+                    {
+                        mDesc = data.getStringExtra("Desc");
                     }
                     break;
                 default:
@@ -173,7 +194,8 @@ public class DrinkCreateActivity extends AppCompatActivity {
     public void AddDrink(){
         if (!mTitleEditText.getText().toString().isEmpty() && !mPriceEditText.getText().toString().isEmpty())
         {
-            mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),mRatingBar.getRating());
+            mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),
+                    mRatingBar.getRating(),mDesc,mTags.toArray(new String[mTags.size()]));
             Intent resultIntent = new Intent();
             resultIntent.putExtra("Drink",mDrink);
             DrinkCreateActivity.this.setResult(Activity.RESULT_OK, resultIntent);

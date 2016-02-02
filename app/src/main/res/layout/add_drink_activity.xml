@@ -8,6 +8,9 @@
         android:focusableInTouchMode="true"
         android:layout_width="0px"
         android:layout_height="0px"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textAlignment="center"
-                        android:hint="Enter Scotch name"
+                        android:hint="Enter name"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:nextFocusDown="@+id/editTextPrice"
@@ -47,7 +50,8 @@
                         android:singleLine="true"
                         android:hint="Price"
                         android:inputType="numberDecimal"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@+id/ratingBar"
                         android:layout_gravity="center"
                         android:id="@+id/editTextPrice"/>
                     <RatingBar
@@ -61,8 +65,10 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/check_button"
+                        android:background="@drawable/ic_check_circle_24dp"
+                        android:backgroundTint="#003d99"
                         android:onClick="addDrinkButton"/>
                 </LinearLayout>
             </LinearLayout>
+    </ScrollView>
 </LinearLayout>
