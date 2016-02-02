@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.gujun.android.taggroup.TagGroup;
+
 public class DrinkCreateActivity extends AppCompatActivity {
     private EditText mPriceEditText;
     private EditText mTitleEditText;
@@ -37,7 +39,9 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private static String imageFolderPath = null;
     private String imageName = null;
     private List<String> mTags;
+    private TextView mTagTextView;
     private String mDesc;
+    private TagGroup mTagGroup;
     private static Uri mFileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
     private static final int TAGS_CREATE_TAGS_CODE = 2;
@@ -49,9 +53,11 @@ public class DrinkCreateActivity extends AppCompatActivity {
         setContentView(R.layout.add_drink_activity);
         mPriceEditText = (EditText) findViewById(R.id.editTextPrice);
         mTitleEditText = (EditText) findViewById(R.id.editTextTitle);
+        mTagTextView = (TextView) findViewById(R.id.title_tags);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         mDesc = "";
         mFileUri = Uri.parse("");
+        mTagGroup = (TagGroup) findViewById(R.id.drinkTagGroup);
         mTags = new ArrayList<>();
         mPriceEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -170,6 +176,9 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     if (!data.getStringArrayListExtra("Tags").isEmpty())
                     {
                         mTags = data.getStringArrayListExtra("Tags");
+                        mTagGroup.setTags(mTags);
+                        mTagTextView.setVisibility(View.VISIBLE);
+
                     }
                     break;
                 case TAGS_CREATE_DESC_CODE:

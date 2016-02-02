@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_centerHorizontal="true"
     android:layout_width="fill_parent"
@@ -12,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:paddingTop="30dp">
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:maxHeight="300dp"
                 android:maxWidth="300dp"
@@ -29,24 +30,41 @@
                 android:src="@drawable/imageplaceholder"
                 android:onClick="AddImage"/>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_gravity="center"
                     android:orientation="vertical">
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textAlignment="center"
                         android:hint="Enter name"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
+                        android:layout_margin="5dp"
                         android:nextFocusDown="@+id/editTextPrice"
                         android:id="@+id/editTextTitle"/>
-                    <EditText
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        android:id="@+id/title_tags"
+                        android:text="Tags"
+                        android:textSize="20sp"/>
+                    <me.gujun.android.taggroup.TagGroup
+                        android:id="@+id/drinkTagGroup"
+                        android:layout_gravity="center"
+                        style="@style/TagGroup"
+                        android:layout_margin="5dp"
+                        app:atg_borderColor="#3385ff"
+                        app:atg_textColor="#3385ff" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:singleLine="true"
                         android:hint="Price"
                         android:inputType="numberDecimal"

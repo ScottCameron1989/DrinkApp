@@ -59,8 +59,14 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         holder.vDrinkName.setText(mDataset.get(position).getNom());
         holder.vDrinkPrice.setText(String.valueOf(mDataset.get(position).getPrice()));
         holder.vDrinkRating.setText(String.valueOf(mDataset.get(position).getRating()));
-        if (!mDataset.get(position).getPicture().isEmpty())
-            Picasso.with(holder.itemView.getContext()).load(mDataset.get(position).getPicture()).into(holder.vDrinkPicture);
+        if (!mDataset.get(position).getPicture().isEmpty()) {
+            Picasso
+                    .with(holder.itemView.getContext())
+                    .load(mDataset.get(position).getPicture())
+                    .resize(200, 200)
+                    .onlyScaleDown()
+                    .into(holder.vDrinkPicture);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
