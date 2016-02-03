@@ -2,6 +2,7 @@ package com.example.scott.scotchtaster;
 
 import android.media.Image;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import me.gujun.android.taggroup.TagGroup;
 
 public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder> {
     private List<Drink> mDataset;
@@ -25,6 +28,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         protected TextView vDrinkPrice;
         protected TextView vDrinkRating;
         protected ImageView vDrinkPicture;
+        protected TagGroup vDrinkTags;
 
         public DrinkViewHolder(View v) {
             super(v);
@@ -32,6 +36,8 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
             vDrinkPrice = (TextView)v.findViewById(R.id.drinkPrice);
             vDrinkRating = (TextView)v.findViewById(R.id.drinkRating);
             vDrinkPicture = (ImageView)v.findViewById(R.id.drinkPicture);
+            vDrinkTags = (TagGroup)v.findViewById(R.id.card_tag_group);
+
         }
     }
 
@@ -67,6 +73,11 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
                     .onlyScaleDown()
                     .into(holder.vDrinkPicture);
         }
+        if (mDataset.get(position).getTags().length != 0)
+        {
+            holder.vDrinkTags.setTags(mDataset.get(position).getTags());
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

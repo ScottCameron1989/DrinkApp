@@ -29,12 +29,17 @@
                 android:id="@+id/imageViewScotch"
                 android:src="@drawable/imageplaceholder"
                 android:onClick="AddImage"/>
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:focusable="false">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -46,21 +51,12 @@
                         android:layout_margin="5dp"
                         android:nextFocusDown="@+id/editTextPrice"
                         android:id="@+id/editTextTitle"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:visibility="gone"
-                        android:id="@+id/title_tags"
-                        android:text="Tags"
-                        android:textSize="20sp"/>
-                    <me.gujun.android.taggroup.TagGroup
-                        android:id="@+id/drinkTagGroup"
-                        android:layout_gravity="center"
-                        style="@style/TagGroup"
-                        android:layout_margin="5dp"
-                        app:atg_borderColor="#3385ff"
-                        app:atg_textColor="#3385ff" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/price_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,21 +68,37 @@
                         android:nextFocusDown="@+id/ratingBar"
                         android:layout_gravity="center"
                         android:id="@+id/editTextPrice"/>
-                    <RatingBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ratingBar"
-                        android:layout_gravity="center_horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"/>
-                    <Button
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_check_circle_24dp"
-                        android:backgroundTint="#003d99"
-                        android:onClick="addDrinkButton"/>
-                </LinearLayout>
+                </android.support.design.widget.TextInputLayout>
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/title_tags"
+                    android:text="Tags"
+                    android:textSize="20sp"/>
+                <me.gujun.android.taggroup.TagGroup
+                    android:id="@+id/drinkTagGroup"
+                    android:layout_gravity="center"
+                    style="@style/TagGroup"
+                    android:layout_margin="5dp"
+                    app:atg_borderColor="#3385ff"
+                    app:atg_textColor="#3385ff" />
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_check_circle_24dp"
+                    android:backgroundTint="#003d99"
+                    android:onClick="addDrinkButton"/>
             </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
