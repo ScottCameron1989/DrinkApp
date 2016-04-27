@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +43,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private TextView mTagTextView;
     private String mDesc;
     private TagGroup mTagGroup;
+    private ImageView mPictureView;
     private static Uri mFileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
     private static final int TAGS_CREATE_TAGS_CODE = 2;
@@ -55,8 +57,23 @@ public class DrinkCreateActivity extends AppCompatActivity {
         mTitleEditText = (EditText) findViewById(R.id.editTextTitle);
         mTagTextView = (TextView) findViewById(R.id.title_tags);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
+        mPictureView = (ImageView) findViewById(R.id.imageViewScotch);
         mDesc = "";
-        mFileUri = Uri.parse("");
+        if (savedInstanceState != null)
+        {
+            if (savedInstanceState.getString("PictureUri") != null && savedInstanceState.getString("PictureUri") != "" ) {
+                mFileUri = Uri.parse(savedInstanceState.getString("PictureUri"));
+                mPictureView.setImageURI(mFileUri);
+            }
+            if (savedInstanceState.getString("tags") != null ){
+                mTags = savedInstanceState.getStringArrayList("Tags");
+                mTagGroup.setTags(mTags);
+                mTagTextView.setVisibility(View.VISIBLE);
+            }
+        }
+        else
+            mFileUri = Uri.parse("");
+
         mTagGroup = (TagGroup) findViewById(R.id.drinkTagGroup);
         mTags = new ArrayList<>();
         mPriceEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -73,6 +90,16 @@ public class DrinkCreateActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putString("PictureUri",mFileUri.toString());
+        savedInstanceState.putStringArrayList("tags", (ArrayList<String>)mTags);
+        // etc.
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -167,9 +194,8 @@ public class DrinkCreateActivity extends AppCompatActivity {
                         e1.printStackTrace();
                     }
 
-                    // Setting image image icon on the imageview
-                    ImageView imageView = (ImageView) this.findViewById(R.id.imageViewScotch);
-                    imageView.setImageBitmap(bitmap);
+
+                    mPictureView.setImageBitmap(bitmap);
 
                     break;
                 case TAGS_CREATE_TAGS_CODE:

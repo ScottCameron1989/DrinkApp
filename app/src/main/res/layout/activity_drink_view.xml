@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical"
+    tools:context="com.example.scott.scotchtaster.DrinkViewActivity">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/viewImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="#a8a2a2"
+                android:clickable="true"
+                android:maxHeight="300dp"
+                android:maxWidth="300dp"
+                android:src="@drawable/ic_camera" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/viewTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/viewTextPrice"
+                    android:singleLine="true"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/viewTextPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/viewRatingBar"
+                    android:singleLine="true" />
+
+                <RatingBar
+                    android:id="@+id/viewRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" />
+
+                <TextView
+                    android:id="@+id/view_title_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Tags"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <me.gujun.android.taggroup.TagGroup
+                    android:id="@+id/viewDrinkTagGroup"
+                    style="@style/TagGroup"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:atg_borderColor="#3385ff"
+                    app:atg_textColor="#3385ff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

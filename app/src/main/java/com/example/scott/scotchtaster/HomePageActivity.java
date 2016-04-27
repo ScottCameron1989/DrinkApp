@@ -1,10 +1,8 @@
 package com.example.scott.scotchtaster;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,9 +17,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomePage extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -29,7 +26,6 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<Drink> drinks;
     private String fileName = "drinks.txt";
     private RatingBar mRatingBar;
-    android.support.v7.app.ActionBar mActionbar;
     private TextView emptyView;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private Control control = new Control();
@@ -42,18 +38,16 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        SharedPreferences sharedPref = HomePage.this.getPreferences(Activity.MODE_PRIVATE);
-
         if (savedInstanceState != null)
         {
             drinks = savedInstanceState.getParcelableArrayList("drinks");
         }
         else {
             drinks = new ArrayList<Drink>();
-            VerifyStoragePermissions(HomePage.this);
-            if( control.getDrinks(HomePage.this) != null)
+            VerifyStoragePermissions(HomePageActivity.this);
+            if( control.getDrinks(HomePageActivity.this) != null)
             {
-                drinks = control.getDrinks(HomePage.this);
+                drinks = control.getDrinks(HomePageActivity.this);
             }
         }
 
@@ -75,6 +69,15 @@ public class HomePage extends AppCompatActivity {
                 drinks.remove(position);
                 mAdapter.notifyDataSetChanged();
                 ActivateEmptyTextView();
+                return true;
+            }
+        });
+
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public boolean onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Drink drink = drinks.get(position);
+                StartDrinkViewActivity(drink);
                 return true;
             }
         });
@@ -118,6 +121,13 @@ public class HomePage extends AppCompatActivity {
         Integer code = new Integer(0);
         startActivityForResult(intent,code);
     }
+    public void StartDrinkViewActivity(Drink drink){
+        Intent intent = new Intent(this,DrinkViewActivity.class);
+        Integer code = new Integer(0);
+        intent.putExtra("Drink",drink);
+        startActivityForResult(intent, code);
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -134,8 +144,8 @@ public class HomePage extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         File file = new File(Environment.getExternalStorageDirectory(), fileName);
-        VerifyStoragePermissions(HomePage.this);
-        control.saveDrinks(HomePage.this,drinks);
+        VerifyStoragePermissions(HomePageActivity.this);
+        control.saveDrinks(HomePageActivity.this,drinks);
         finish();
     }
     public void ActivateEmptyTextView()
