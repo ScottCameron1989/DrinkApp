@@ -30,7 +30,6 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:background="#a8a2a2"
-                android:clickable="true"
                 android:maxHeight="300dp"
                 android:maxWidth="300dp"
                 android:src="@drawable/ic_camera" />
@@ -42,28 +41,36 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <EditText
+                <TextView
                     android:id="@+id/viewTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:imeOptions="actionNext"
+                    android:textSize="20sp"
                     android:nextFocusDown="@+id/viewTextPrice"
                     android:singleLine="true"
                     android:textAlignment="center" />
-
-                <EditText
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#a8a2a2" />
+                <TextView
                     android:id="@+id/viewTextPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:textSize="20sp"
                     android:imeOptions="actionNext"
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@+id/viewRatingBar"
                     android:singleLine="true" />
-
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#a8a2a2" />
                 <RatingBar
                     android:id="@+id/viewRatingBar"
                     android:layout_width="wrap_content"
@@ -87,7 +94,9 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:atg_borderColor="#3385ff"
-                    app:atg_textColor="#3385ff" />
+                    app:atg_textColor="#3385ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

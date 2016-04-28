@@ -17,7 +17,10 @@
             android:name=".TagsActivity"
             android:label="@string/title_activity_tags" />
         <activity
-            android:name=".HomePage"
+            android:name=".DrinkViewActivity"
+            android:label="@string/title_drink_view_activity" />
+        <activity
+            android:name=".HomePageActivity"
             android:label="@string/title_activity_home_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

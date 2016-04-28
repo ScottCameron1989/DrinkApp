@@ -3,8 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_sort">Sort</string>
     <string name="title_activity_tags">Add Tags!</string>
     <string name="title_activity_home_page">Drink Taster</string>
+    <string name="title_drink_view_activity">Drink</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

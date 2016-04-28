@@ -8,13 +8,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import me.gujun.android.taggroup.TagGroup;
 
 public class DrinkViewActivity extends AppCompatActivity {
-    private EditText mPriceEditText;
-    private EditText mTitleEditText;
+    private TextView mPriceEditText;
+    private TextView mTitleEditText;
     private Drink mDrink;
     private RatingBar mRatingBar;
     private static String root = null;
@@ -32,18 +33,22 @@ public class DrinkViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_view);
 
-        mPriceEditText = (EditText) findViewById(R.id.viewTextPrice);
-        mTitleEditText = (EditText) findViewById(R.id.viewTextName);
+        mPriceEditText = (TextView) findViewById(R.id.viewTextPrice);
+        mTitleEditText = (TextView) findViewById(R.id.viewTextName);
         mTagTextView = (TextView) findViewById(R.id.view_title_tags);
         mRatingBar = (RatingBar) findViewById(R.id.viewRatingBar);
         mPictureView = (ImageView) findViewById(R.id.viewImage);
+        mTagGroup = (TagGroup) findViewById(R.id.viewDrinkTagGroup);
 
         if (getIntent().getExtras() != null) {
             mDrink = getIntent().getParcelableExtra("Drink");
             mPriceEditText.setText(String.valueOf(mDrink.getPrice()));
             mTitleEditText.setText(mDrink.getNom());
             mRatingBar.setRating(mDrink.getRating());
-            mPictureView.setImageURI(Uri.parse(mDrink.getPicture()));
+            if(mDrink.getTags()!=null && mDrink.getTags().length >0)
+                mTagGroup.setTags(mDrink.getTags());
+            if (mDrink.getPicture()!= "")
+                mPictureView.setImageURI(Uri.parse(mDrink.getPicture()));
         }
     }
 }
