@@ -24,12 +24,11 @@
     card_view:cardCornerRadius="4dp"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true"
-    android:layout_margin="10dp">
+    android:elevation="@dimen/cardview_compat_inset_shadow">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#84a2f7">
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -63,7 +62,9 @@
                     android:layout_gravity="center"
                     style="@style/TagGroup"
                     app:atg_borderColor="#ffffff"
-                    app:atg_textColor="#ffffff" />
+                    app:atg_textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/drinkRating"
                 android:layout_width="match_parent"

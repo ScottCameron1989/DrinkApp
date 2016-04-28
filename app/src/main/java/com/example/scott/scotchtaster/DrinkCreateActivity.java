@@ -228,6 +228,8 @@ public class DrinkCreateActivity extends AppCompatActivity {
     public void AddDrink(){
         if (!mTitleEditText.getText().toString().isEmpty() && !mPriceEditText.getText().toString().isEmpty())
         {
+            if(mTags == null)
+                mTags.set(0,"");
             mDrink = new Drink(mTitleEditText.getText().toString(), Double.valueOf(mPriceEditText.getText().toString()),
                     mRatingBar.getRating(),mDesc,mTags.toArray(new String[mTags.size()]),mFileUri.toString());
             Intent resultIntent = new Intent();
