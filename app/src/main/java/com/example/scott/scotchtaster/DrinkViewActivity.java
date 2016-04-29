@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.lang.reflect.Array;
 import java.util.List;
 
@@ -18,15 +20,9 @@ public class DrinkViewActivity extends AppCompatActivity {
     private TextView mTitleEditText;
     private Drink mDrink;
     private RatingBar mRatingBar;
-    private static String root = null;
-    private static String imageFolderPath = null;
-    private String imageName = null;
-    private List<String> mTags;
     private TextView mTagTextView;
-    private String mDesc;
     private TagGroup mTagGroup;
     private ImageView mPictureView;
-    private static Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +43,14 @@ public class DrinkViewActivity extends AppCompatActivity {
             mRatingBar.setRating(mDrink.getRating());
             if(mDrink.getTags()!=null && mDrink.getTags().length >0)
                 mTagGroup.setTags(mDrink.getTags());
-            if (mDrink.getPicture()!= "")
-                mPictureView.setImageURI(Uri.parse(mDrink.getPicture()));
+
+            if (mDrink.getPicture() != null && !mDrink.getPicture().isEmpty()) {
+                Picasso
+                        .with(mPictureView.getContext())
+                        .load(mDrink.getPicture())
+                        .fit().centerCrop()
+                        .into(mPictureView);
+            }
         }
     }
 }

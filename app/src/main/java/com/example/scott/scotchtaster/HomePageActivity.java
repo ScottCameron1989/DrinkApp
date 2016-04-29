@@ -7,12 +7,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import java.io.File;
@@ -29,6 +32,9 @@ public class HomePageActivity extends AppCompatActivity {
     private TextView emptyView;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private Control control = new Control();
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -63,15 +69,15 @@ public class HomePageActivity extends AppCompatActivity {
         emptyView = (TextView) findViewById(R.id.text_empty);
         ActivateEmptyTextView();
 
-        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
-                drinks.remove(position);
-                mAdapter.notifyDataSetChanged();
-                ActivateEmptyTextView();
-                return true;
-            }
-        });
+//        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+//                drinks.remove(position);
+//                mAdapter.notifyDataSetChanged();
+//                ActivateEmptyTextView();
+//                return true;
+//            }
+//        });
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -81,6 +87,16 @@ public class HomePageActivity extends AppCompatActivity {
                 return true;
             }
         });
+//
+//        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        mDrawerList = (ListView) findViewById(R.id.right_drawer);
+//
+//        // Set the adapter for the list view
+//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item, mPlanetTitles));
+//        // Set the list's click listener
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
     }
 
@@ -109,7 +125,7 @@ public class HomePageActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort) {
             return true;
         }
 
