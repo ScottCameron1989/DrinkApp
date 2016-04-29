@@ -45,6 +45,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private TagGroup mTagGroup;
     private ImageView mPictureView;
     private static Uri mFileUri = null;
+    private static Uri mTempoFileUri = null;
     private static final int CAMERA_IMAGE_REQUEST=1;
     private static final int TAGS_CREATE_TAGS_CODE = 2;
     private static final int TAGS_CREATE_DESC_CODE = 3;
@@ -161,13 +162,13 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
         File image = new File(imageFolderPath, imageName);
 
-        mFileUri = Uri.fromFile(image);
+        mTempoFileUri = Uri.fromFile(image);
 
         imageView.setTag(imageFolderPath + File.separator + imageName);
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mTempoFileUri);
 
         startActivityForResult(takePictureIntent, CAMERA_IMAGE_REQUEST);
 
@@ -196,7 +197,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
 
                     mPictureView.setImageBitmap(bitmap);
-
+                    mFileUri = mTempoFileUri;
                     break;
                 case TAGS_CREATE_TAGS_CODE:
                     if (!data.getStringArrayListExtra("Tags").isEmpty())

@@ -69,15 +69,15 @@ public class HomePageActivity extends AppCompatActivity {
         emptyView = (TextView) findViewById(R.id.text_empty);
         ActivateEmptyTextView();
 
-//        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
-//                drinks.remove(position);
-//                mAdapter.notifyDataSetChanged();
-//                ActivateEmptyTextView();
-//                return true;
-//            }
-//        });
+        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                drinks.remove(position);
+                mAdapter.notifyDataSetChanged();
+                ActivateEmptyTextView();
+                return true;
+            }
+        });
 
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
