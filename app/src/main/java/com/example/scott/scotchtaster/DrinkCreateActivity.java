@@ -22,6 +22,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,6 +51,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private static final int CAMERA_IMAGE_REQUEST=1;
     private static final int TAGS_CREATE_TAGS_CODE = 2;
     private static final int TAGS_CREATE_DESC_CODE = 3;
+    private boolean misImageCaptured = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +141,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     }
 
     public void AddImage(View view) {
-       captureImage();
+       if (!misImageCaptured) captureImage();
     }
 
     public void captureImage() {
@@ -183,21 +186,14 @@ public class DrinkCreateActivity extends AppCompatActivity {
 
             switch (requestCode) {
                 case CAMERA_IMAGE_REQUEST:
-                    Bitmap bitmap = null;
-                    try {
-                        GetImageThumbnail getImageThumbnail = new GetImageThumbnail();
-                        bitmap = getImageThumbnail.getThumbnail(mFileUri, this);
-                    } catch (FileNotFoundException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-
-
-                    mPictureView.setImageBitmap(bitmap);
                     mFileUri = mTempoFileUri;
+                    misImageCaptured = true;
+                    Picasso
+                            .with(mPictureView.getContext())
+                            .load(mFileUri)
+                            .resize(mPictureView.getHeight(),mPictureView.getWidth())
+                            .centerCrop()
+                            .into(mPictureView);
                     break;
                 case TAGS_CREATE_TAGS_CODE:
                     if (!data.getStringArrayListExtra("Tags").isEmpty())
