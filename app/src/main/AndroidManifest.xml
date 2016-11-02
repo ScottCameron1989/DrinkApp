@@ -22,15 +22,20 @@
         <activity
             android:name=".HomePageActivity"
             android:label="@string/title_activity_home_page">
+        </activity>
+        <activity
+            android:name=".DescriptionActivity"
+            android:label="@string/title_activity_description" />
+        <activity
+            android:name=".drawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DescriptionActivity"
-            android:label="@string/title_activity_description" />
     </application>
 
 </manifest>

@@ -42,6 +42,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
     private static String imageFolderPath = null;
     private String imageName = null;
     private List<String> mTags;
+    private List<String> mAllTags;
     private TextView mTagTextView;
     private String mDesc;
     private TagGroup mTagGroup;
@@ -92,6 +93,10 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     return false;
             }
         });
+
+        if (getIntent().getExtras() != null) {
+            mAllTags = getIntent().getStringArrayListExtra("AllTags");
+        }
     }
 
     @Override

@@ -13,4 +13,8 @@
     <string name="add_tags">Add Tags</string>
     <string name="add_description">Add Description</string>
     <string name="title_activity_description">Add Description!</string>
+    <string name="title_activity_drawer">drawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
