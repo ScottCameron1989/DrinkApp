@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'me.gujun.android.taggroup:library:1.4@aar'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

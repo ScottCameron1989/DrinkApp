@@ -191,7 +191,7 @@ public class DrinkCreateActivity extends AppCompatActivity {
                     Picasso
                             .with(mPictureView.getContext())
                             .load(mFileUri)
-                            .resize(mPictureView.getHeight(),mPictureView.getWidth())
+                            .resize(mPictureView.getWidth(),mPictureView.getHeight())
                             .centerCrop()
                             .into(mPictureView);
                     break;
